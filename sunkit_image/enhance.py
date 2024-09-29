@@ -1,5 +1,9 @@
 """
-This module contains enhancement routines for solar physics data.
+This module contains enhancement routines for solar physics data based on multi-scale decomposition techniques.
+These methods decompose images into components at different spatial scales, allowing for the enhancement of
+features across a wide dynamic range. Techniques like Multi-scale Gaussian Normalization (MGN) and
+Wavelets Optimized Whitening (WOW) help reveal structures at various scales, making them valuable for
+solar image processing.
 """
 
 import warnings
