@@ -651,6 +651,9 @@ def _select_rank_method(method):
         arr[sorted_indices] = np.arange(1, len(arr) + 1)
         return arr / float(len(arr))
 
+    def _no_ranking(arr):
+        return arr
+
     # Select the sort method
     if method == "inplace":
         ranking_func = _percentile_ranks_numpy_inplace
@@ -658,31 +661,12 @@ def _select_rank_method(method):
         ranking_func = _percentile_ranks_numpy
     elif method == "scipy":
         ranking_func = _percentile_ranks_scipy
+    elif method is None or method.casefold() == "none":
+        ranking_func = _no_ranking
     else:
-        msg = f"{method} is invalid. Allowed values are 'inplace', 'numpy', 'scipy'"
+        msg = f"{method} is invalid. Allowed values are 'inplace', 'numpy', 'scipy', and 'none'"
         raise NotImplementedError(msg)
     return ranking_func
-
-
-def find_radial_bin_edges(smap, radial_bin_edges=None):
-    # Get the radii for every pixel, ensuring units are correct (in terms of pixels or solar radii)
-    map_r = find_pixel_radii(smap)
-    # Automatically generate radial bin edges if none are provided
-    if radial_bin_edges is None:
-        radial_bin_edges = equally_spaced_bins(0, np.max(map_r.value), smap.data.shape[0] // 2) * u.R_sun
-
-    # Ensure radial_bin_edges are within the bounds of the map_r values
-    if radial_bin_edges[1, -1] > np.max(map_r):
-        radial_bin_edges = (
-            equally_spaced_bins(
-                inner_value=radial_bin_edges[0, 0].to(u.R_sun).value,
-                outer_value=np.max(map_r.to(u.R_sun)).value,
-                nbins=radial_bin_edges.shape[1] // 2,
-            )
-            * u.R_sun
-        )
-    return radial_bin_edges, map_r
-
 
 @u.quantity_input(application_radius=u.R_sun, vignette=u.R_sun)
 def rhef(
