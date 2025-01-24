@@ -196,9 +196,7 @@ def reform2d(array, factor=1):
         raise ValueError(msg)
     if factor > 1:
         congridx = RectBivariateSpline(
-
             np.arange(0, array.shape[0]), np.arange(0, array.shape[1]), array, kx=1, ky=1
-
         )
         return congridx(np.arange(0, array.shape[0], 1 / factor), np.arange(0, array.shape[1], 1 / factor))
     return array

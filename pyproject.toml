@@ -36,7 +36,7 @@ dependencies = [
   "matplotlib>=3.5.0",
   "scipy>=1.10.1",
   "scikit-image>=0.20.0",
-  "sunpy[map]>=5.1.5",
+  "sunpy[map]>=6.0.0",
 ]
 
 [project.optional-dependencies]
