@@ -674,7 +674,7 @@ def rhef(
     *,
     radial_bin_edges=None,
     application_radius=0 * u.R_sun,
-    upsilon=0.35,
+    upsilon=None,
     method="numpy",
     vignette=None,
     progress=False,

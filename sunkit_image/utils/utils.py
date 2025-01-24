@@ -347,7 +347,7 @@ def apply_upsilon(data, upsilon=(0.5, 0.5)):
     if isinstance(upsilon, float):
         alpha = alpha_high = upsilon
     else:
-        alpha, alpha_high = upsilon
+        (alpha, alpha_high) = upsilon
         if alpha_high is None:
             alpha_high = 1.0
         if alpha is None:
