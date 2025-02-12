@@ -20,6 +20,8 @@ from sunkit_image.utils import (
     find_pixel_radii,
     equally_spaced_bins
 )
+from scipy import stats
+
 
 __all__ = ["fnrgf", "intensity_enhance", "set_attenuation_coefficients", "nrgf", "rhef"]
 
@@ -105,7 +107,6 @@ def _normalize_fit_radial_intensity(radii, polynomial, normalization_radius):
 def _select_rank_method(method):
     # For now, we have more than one option for ranking the values
     def _percentile_ranks_scipy(arr):
-        from scipy import stats
 
         return stats.rankdata(arr, method="average") / len(arr)
 
@@ -674,7 +675,7 @@ def rhef(
     *,
     radial_bin_edges=None,
     application_radius=0 * u.R_sun,
-    upsilon=None,
+    upsilon=0.35,
     method="numpy",
     vignette=None,
     progress=False,
